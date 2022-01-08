@@ -11,3 +11,116 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.card {
+  width: 400px;
+  height: 600px;
+  display: flex;
+  padding: 16px;
+  margin: 8px;
+  background-color: #fff;
+  border: 1px solid #c2c8d5;
+  border-top: 4px solid #5F95FF;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px 1px rgba(0,0,0, 0.006);
+  flex-direction: column;
+  font-size: 16px;
+
+}
+
+.card .item {
+  margin-top: 4px;
+}
+.card .title {
+  font-size: 14px;
+}
+.card  .name {
+  font-size: 32px;
+}
+
+.tree-graph {
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  display: flex;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.node {
+  display: flex;
+  align-items: center;
+  width: 160px;
+  height: 36px;
+  margin: 8px;
+  background-color: #fff;
+  border: 1px solid #c2c8d5;
+  border-left: 4px solid #5F95FF;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px 1px rgba(0,0,0, 0.006);
+}
+.node img {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+.node .label {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 104px;
+  margin-left: 8px;
+  color: #666;
+  font-size: 12px;
+}
+.node .status {
+  flex-shrink: 0;
+}
+.node.success {
+  border-left: 4px solid #52c41a;
+}
+
+
+.metric-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-table .metric-line{
+  display: flex;
+  width: 100%;
+
+}
+.metric-table .name {
+  flex: 1 1 auto;
+}
+
+.metric-table .baseline,
+.metric-table .actual{
+  flex: 0 0 100px;
+
+}
+
+.metric-table .log .hits{
+  flex: 0 0 40px;
+
+}
+
+.metric-table .hits {
+  flex: 0 0 60px;
+}
+
+/*.col-md-12 text {*/
+/*  text-anchor: start!important;*/
+/*  transform: translate(-45px, 0);*/
+/*}*/
+
+.node.metric.active {
+  border-left: 4px solid red;
+}
+
+.node.metric {
+  border-left: 1px solid #c2c8d5;
+}
