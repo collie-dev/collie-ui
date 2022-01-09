@@ -112,6 +112,11 @@ code {
   flex: 0 0 60px;
 }
 
+.metric-table .rca {
+  flex: 0 0 120px;
+
+}
+
 /*.col-md-12 text {*/
 /*  text-anchor: start!important;*/
 /*  transform: translate(-45px, 0);*/

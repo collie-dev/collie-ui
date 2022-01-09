@@ -32,8 +32,8 @@ function App() {
               <Tabs defaultActiveKey="1" onChange={setTabId} activeKey={tabId}>
                 <TabPane tab="Overview" key="1"/>
                 <TabPane tab="Anomaly Extraction" key="2"/>
-                <TabPane tab="Dependency intelligence" key="4"/>
                 <TabPane tab="knowledge graph" key="3"/>
+                <TabPane tab="Dependency intelligence" key="4"/>
               </Tabs>
             }
           >

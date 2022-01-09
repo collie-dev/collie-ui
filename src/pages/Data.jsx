@@ -5,6 +5,8 @@ import { format } from "d3-format";
 import _ from "underscore";
 import data from "./ts.json"
 import {Set} from "immutable"
+import { Switch } from 'antd';
+
 // Pond
 import { TimeSeries, TimeRange } from "pondjs";
 import {
@@ -66,6 +68,8 @@ export default class cycling extends React.Component {
     this.state = {
       ready: false,
       mode: "channels",
+      enableHint: false,
+      enableLabel: false,
       channels: [],
       channelNames: [],
       rollup: "1m",
@@ -153,7 +157,7 @@ export default class cycling extends React.Component {
   };
 
   renderChannelsChart = () => {
-    const { selected, channelNames, channels, maxTime, minTime, minDuration } = this.state;
+    const { enableHint,enableLabel, selected, channelNames, channels, maxTime, minTime, minDuration } = this.state;
 
     const rows = [];
 
@@ -196,30 +200,36 @@ export default class cycling extends React.Component {
       // }
 
       const isSelect = selected.has(channelName)
-      charts.push(<TimeRangeMarker
-        onClick={()=>console.log("?")}
+      if (enableLabel){
+        charts.push(<TimeRangeMarker
+          onClick={()=>console.log("?")}
 
-        type="flag"
-        style={{ fill: isSelect? "rgba(82, 196, 26, 0.25)":"rgba(70, 130, 180, 0.25)" }}
-        axis={`${channelName}_axis`}
-        timerange={new TimeRange([1641555720000, 1641556500000])}
-      />)
-      for (let p of channels[channelName].cp) {
-        charts.push(<TimeMarker
-          time={new Date(p.start / 1000000)}
-          // infoValues={"Shift↘"}
-          showTime={false}
-          infoHeight={0}
-          infoWidth={0}
-          infoStyle={{
-            line: { stroke: "red", cursor: "crosshair", pointerEvents: "none" },
-            box: {
-              fill: "red", opacity: 0, stroke: "#999", pointerEvents: "none",
-              label: { fill: "red", transform: "translate(-10px, -10px)" }
-            },
-            dot: { fill: "#999" }
-          }}
+          type="flag"
+          style={{ fill: (isSelect && enableHint)? "rgba(82, 196, 26, 0.25)":"rgba(70, 130, 180, 0.25)" }}
+          axis={`${channelName}_axis`}
+          timerange={new TimeRange([1641555720000, 1641556500000])}
         />)
+      }
+      if (enableHint){
+
+        for (let p of channels[channelName].cp) {
+          charts.push(<TimeMarker
+            time={new Date(p.start / 1000000)}
+            // infoValues={"Shift↘"}
+            showTime={false}
+            infoHeight={0}
+            infoWidth={0}
+            infoStyle={{
+              line: { stroke: "red", cursor: "crosshair", pointerEvents: "none" },
+              box: {
+                fill: "red", opacity: 0, stroke: "#999", pointerEvents: "none",
+                label: { fill: "red", transform: "translate(-10px, -10px)" }
+              },
+              dot: { fill: "#999" }
+            }}
+          />)
+        }
+
       }
 
 
@@ -317,7 +327,7 @@ export default class cycling extends React.Component {
   };
 
   render() {
-    const { ready } = this.state;
+    const { ready, enableHint, enableLabel } = this.state;
 
     if (!ready) {
       return <div>{`Building rollups...`}</div>;
@@ -337,6 +347,8 @@ export default class cycling extends React.Component {
     return (
       <div className="site-layout-background" style={{ padding: 8, marginTop: 24 }}>
         <div className="row">
+          DBA label: <Switch  onChange={()=>this.setState({enableLabel: !enableLabel})} />
+          Collie Detection:<Switch  onChange={()=>this.setState({enableHint: !enableHint})} />
 
           <div className="col-md-6">
             {this.state.tracker
